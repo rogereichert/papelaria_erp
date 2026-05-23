@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environment
+venv/
+.env/
+.venv/
+ENV/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Migrations cache
+*/migrations/__pycache__/
+
+# Tests / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Package/build
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Node / frontend assets, caso usemos depois
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Uploads / generated files
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# Local database backups
+*.bak
+*.backup
+*.sql
+*.dump
+
+# Celery / Redis / runtime files, caso usemos depois
+celerybeat-schedule
+celerybeat.pid
+*.pid
+
+# Docker local files
+docker-compose.override.yml
+
+# Generated reports
+reports/generated/
+exports/
