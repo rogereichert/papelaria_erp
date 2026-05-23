@@ -1,0 +1,183 @@
+{% extends "core/base.html" %}
+
+{% block title %}Material | Papelaria ERP{% endblock %}
+
+{% block page_title %}Material{% endblock %}
+{% block page_subtitle %}Cadastro e edição de materiais{% endblock %}
+
+{% block content %}
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <div class="row g-4">
+
+        <!-- Coluna esquerda -->
+
+        <div class="col-lg-8">
+
+            <div class="content-card h-100">
+
+                <div class="mb-4">
+
+                    <h2 class="mb-1">
+
+                        {% if material %}
+                            Editar material
+                        {% else %}
+                            Novo material
+                        {% endif %}
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Preencha os dados do material.
+                    </p>
+
+                </div>
+
+                <div class="row g-3">
+
+                    <div class="col-md-12">
+
+                        <label class="form-label">
+                            Nome
+                        </label>
+
+                        {{ form.name }}
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Categoria
+                        </label>
+
+                        {{ form.category }}
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Fornecedor
+                        </label>
+
+                        {{ form.supplier }}
+
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <label class="form-label">
+                            Descrição
+                        </label>
+
+                        {{ form.description }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Coluna direita -->
+
+        <div class="col-lg-4">
+
+            <div class="content-card mb-4">
+
+                <h5 class="mb-3">
+                    Estoque
+                </h5>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Estoque atual
+                    </label>
+
+                    {{ form.current_stock }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Estoque mínimo
+                    </label>
+
+                    {{ form.minimum_stock }}
+
+                </div>
+
+                <div class="mb-0">
+
+                    <label class="form-label">
+                        Unidade
+                    </label>
+
+                    {{ form.unit }}
+
+                </div>
+
+            </div>
+
+            <div class="content-card">
+
+                <h5 class="mb-3">
+                    Financeiro
+                </h5>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Preço de custo
+                    </label>
+
+                    {{ form.cost_price }}
+
+                </div>
+
+                <div class="form-check mb-4">
+
+                    {{ form.is_active }}
+
+                    <label class="form-check-label">
+                        Material ativo
+                    </label>
+
+                </div>
+
+                <div class="d-grid gap-2">
+
+                    <button type="submit" class="btn btn-primary">
+
+                        <i class="bi bi-check-lg"></i>
+
+                        Salvar material
+
+                    </button>
+
+                    <a
+                        href="{% url 'inventory:material_list' %}"
+                        class="btn btn-light"
+                    >
+                        Cancelar
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+{% endblock %}

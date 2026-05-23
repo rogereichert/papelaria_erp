@@ -20,14 +20,17 @@
 
         <div class="sidebar-section">Gestão</div>
 
-        <a href="#" class="sidebar-link">
+        <a
+            href="{% url 'inventory:material_list' %}"
+            class="sidebar-link {% if 'material' in request.resolver_match.url_name %}active{% endif %}"
+        >
             <i class="bi bi-box-seam"></i>
             <span>Materiais</span>
         </a>
 
         <a
             href="{% url 'inventory:category_list' %}"
-            class="sidebar-link {% if request.resolver_match.url_name == 'category_list' %}active{% endif %}"
+            class="sidebar-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}"
         >
             <i class="bi bi-tags"></i>
             <span>Categorias</span>

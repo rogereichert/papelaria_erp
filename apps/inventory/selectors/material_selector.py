@@ -38,3 +38,14 @@ def get_low_stock_materials():
         for material in materials
         if material.is_low_stock
     ]
+
+
+def get_material_by_id(*, material_id):
+    return (
+        Material.objects
+        .select_related(
+            "category",
+            "supplier",
+        )
+        .get(id=material_id)
+    )

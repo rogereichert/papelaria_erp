@@ -7,6 +7,13 @@ from apps.inventory.views import (
     category_update_view,
 )
 
+from apps.inventory.views import (
+    material_create_view,
+    material_delete_view,
+    material_list_view,
+    material_update_view,
+)
+
 app_name = "inventory"
 
 urlpatterns = [
@@ -32,5 +39,29 @@ urlpatterns = [
         "categories/<uuid:pk>/delete/",
         category_delete_view,
         name="category_delete",
+    ),
+
+    path(
+        "materials/",
+        material_list_view,
+        name="material_list",
+    ),
+
+    path(
+        "materials/create/",
+        material_create_view,
+        name="material_create",
+    ),
+
+    path(
+        "materials/<uuid:pk>/update/",
+        material_update_view,
+        name="material_update",
+    ),
+
+    path(
+        "materials/<uuid:pk>/delete/",
+        material_delete_view,
+        name="material_delete",
     ),
 ]
