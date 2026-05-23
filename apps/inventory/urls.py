@@ -5,13 +5,13 @@ from apps.inventory.views import (
     category_delete_view,
     category_list_view,
     category_update_view,
-)
 
-from apps.inventory.views import (
     material_create_view,
     material_delete_view,
     material_list_view,
     material_update_view,
+
+    stock_entry_view,
 )
 
 app_name = "inventory"
@@ -63,5 +63,10 @@ urlpatterns = [
         "materials/<uuid:pk>/delete/",
         material_delete_view,
         name="material_delete",
+    ),
+    path(
+        "stock/entry/",
+        stock_entry_view,
+        name="stock_entry",
     ),
 ]

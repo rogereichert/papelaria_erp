@@ -36,7 +36,10 @@
             <span>Categorias</span>
         </a>
 
-        <a href="#" class="sidebar-link">
+        <a
+            href="{% url 'inventory:stock_entry' %}"
+            class="sidebar-link {% if 'stock' in request.resolver_match.url_name %}active{% endif %}"
+        >
             <i class="bi bi-arrow-left-right"></i>
             <span>Movimentações</span>
         </a>

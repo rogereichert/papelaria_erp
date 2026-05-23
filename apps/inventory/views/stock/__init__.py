@@ -1,0 +1,1 @@
+from .entry_view import stock_entry_view
