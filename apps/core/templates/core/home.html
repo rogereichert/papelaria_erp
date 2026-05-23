@@ -12,7 +12,7 @@
     <div class="metric-card">
         <div>
             <span class="metric-label">Materiais cadastrados</span>
-            <strong class="metric-value">0</strong>
+            <strong class="metric-value">{{ total_materials }}</strong>
         </div>
         <div class="metric-icon">
             <i class="bi bi-box-seam"></i>
@@ -22,7 +22,7 @@
     <div class="metric-card">
         <div>
             <span class="metric-label">Estoque baixo</span>
-            <strong class="metric-value">0</strong>
+            <strong class="metric-value">{{ low_stock_count }}</strong>
         </div>
         <div class="metric-icon warning">
             <i class="bi bi-exclamation-triangle"></i>
@@ -42,18 +42,61 @@
 </div>
 
 <div class="content-card mt-4">
+
     <div class="content-card-header">
         <div>
-            <h2>Bem-vindo ao ERP</h2>
-            <p>Essa é a base visual do sistema. A partir daqui vamos conectar os módulos reais.</p>
+            <h2>Últimas movimentações</h2>
+            <p>Histórico recente do estoque</p>
         </div>
     </div>
 
-    <div class="empty-state">
-        <i class="bi bi-stars"></i>
-        <h3>Core configurado com sucesso</h3>
-        <p>Layout, sidebar, navbar, mensagens globais e assets estão funcionando.</p>
+    <div class="table-responsive mt-4">
+
+        <table class="table align-middle">
+
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Tipo</th>
+                    <th>Quantidade</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for movement in recent_movements %}
+
+                    <tr>
+                        <td>{{ movement.material.name }}</td>
+
+                        <td>
+                            {{ movement.get_movement_type_display }}
+                        </td>
+
+                        <td>{{ movement.quantity }}</td>
+
+                        <td>
+                            {{ movement.created_at|date:"d/m/Y H:i" }}
+                        </td>
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+                        <td colspan="4">
+                            Nenhuma movimentação encontrada.
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
     </div>
+
 </div>
 
 {% endblock %}
