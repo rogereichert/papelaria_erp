@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.inventory.models import Category, Material, Supplier
+from apps.inventory.models import Category, Material, Supplier, StockMovement
 
 
 @admin.register(Category)
@@ -117,4 +117,34 @@ class MaterialAdmin(admin.ModelAdmin):
                 ]
             },
         ),
+    ]
+
+@admin.register(StockMovement)
+class StockMovementAdmin(admin.ModelAdmin):
+    list_display = [
+        "material",
+        "movement_type",
+        "quantity",
+        "previous_stock",
+        "new_stock",
+        "created_at",
+    ]
+
+    search_fields = [
+        "material__name",
+        "notes",
+    ]
+
+    list_filter = [
+        "movement_type",
+        "created_at",
+    ]
+
+    readonly_fields = [
+        "created_at",
+        "updated_at",
+    ]
+
+    ordering = [
+        "-created_at",
     ]
