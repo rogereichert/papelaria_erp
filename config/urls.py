@@ -5,7 +5,14 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
     path("", include("apps.core.urls")),
+
+    path("inventory/", include("apps.inventory.urls")),
+    path("purchases/", include("apps.purchases.urls")),
+    path("reports/", include("apps.reports.urls")),
+    path("accounts/", include("apps.accounts.urls")),
+    path("dashboard/", include("apps.dashboard.urls")),
 ]
 
 if settings.DEBUG:
