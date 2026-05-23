@@ -15,7 +15,7 @@
             <h2 class="mb-1">Lista de materiais</h2>
 
             <p class="text-muted mb-0">
-                Controle completo dos materiais da papelaria.
+                {{ total_results }} material{{ total_results|pluralize:" encontrado,encontrados" }}.
             </p>
         </div>
 
@@ -28,6 +28,63 @@
         </a>
 
     </div>
+
+    <form method="get" class="row g-3 mb-4">
+
+        <div class="col-lg-5">
+            <label class="form-label">Buscar</label>
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                class="form-control"
+                placeholder="Nome, descrição, categoria ou fornecedor"
+            >
+        </div>
+
+        <div class="col-lg-3">
+            <label class="form-label">Categoria</label>
+            <select name="category" class="form-select">
+                <option value="">Todas</option>
+
+                {% for category in categories %}
+                    <option
+                        value="{{ category.id }}"
+                        {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}
+                    >
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-lg-2">
+            <label class="form-label">Estoque</label>
+            <select name="stock_status" class="form-select">
+                <option value="">Todos</option>
+                <option value="low" {% if selected_stock_status == "low" %}selected{% endif %}>
+                    Baixo
+                </option>
+                <option value="normal" {% if selected_stock_status == "normal" %}selected{% endif %}>
+                    Normal
+                </option>
+            </select>
+        </div>
+
+        <div class="col-lg-2 d-flex align-items-end gap-2">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-search"></i>
+                Filtrar
+            </button>
+        </div>
+
+        <div class="col-12">
+            <a href="{% url 'inventory:material_list' %}" class="btn btn-light btn-sm">
+                Limpar filtros
+            </a>
+        </div>
+
+    </form>
 
     <div class="table-responsive">
 
@@ -52,97 +109,70 @@
                     <tr>
 
                         <td>
-
                             <div class="d-flex flex-column">
-
-                                <strong>
-                                    {{ material.name }}
-                                </strong>
-
-                                <small class="text-muted">
-                                    {{ material.unit }}
-                                </small>
-
+                                <strong>{{ material.name }}</strong>
+                                <small class="text-muted">{{ material.unit }}</small>
                             </div>
-
                         </td>
 
-                        <td>
-                            {{ material.category.name }}
-                        </td>
+                        <td>{{ material.category.name }}</td>
+
+                        <td>{{ material.supplier|default:"-" }}</td>
 
                         <td>
-                            {{ material.supplier|default:"-" }}
-                        </td>
-
-                        <td>
-
                             <div class="d-flex flex-column">
-
-                                <strong>
-                                    {{ material.current_stock }}
-                                </strong>
+                                <strong>{{ material.current_stock }}</strong>
 
                                 {% if material.is_low_stock %}
-
                                     <span class="badge bg-danger mt-1">
                                         Estoque baixo
                                     </span>
-
                                 {% else %}
-
                                     <span class="badge bg-success mt-1">
                                         Normal
                                     </span>
-
                                 {% endif %}
-
                             </div>
-
                         </td>
 
-                        <td>
-                            R$ {{ material.cost_price }}
-                        </td>
+                        <td>R$ {{ material.cost_price }}</td>
 
                         <td>
-
                             {% if material.is_active %}
-
-                                <span class="badge bg-success">
-                                    Ativo
-                                </span>
-
+                                <span class="badge bg-success">Ativo</span>
                             {% else %}
-
-                                <span class="badge bg-secondary">
-                                    Inativo
-                                </span>
-
+                                <span class="badge bg-secondary">Inativo</span>
                             {% endif %}
-
                         </td>
 
                         <td>
-
                             <div class="d-flex gap-2">
 
                                 <a
                                     href="{% url 'inventory:material_update' material.id %}"
                                     class="btn btn-sm btn-outline-primary"
+                                    title="Editar"
                                 >
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
                                 <a
+                                    href="{% url 'inventory:stock_entry' %}?material={{ material.id }}"
+                                    class="btn btn-sm btn-outline-success"
+                                    title="Entrada de estoque"
+                                >
+                                    <i class="bi bi-plus-circle"></i>
+                                </a>
+
+                                <a
                                     href="{% url 'inventory:material_delete' material.id %}"
                                     class="btn btn-sm btn-outline-danger"
+                                    title="Desativar"
                                 >
                                     <i class="bi bi-trash"></i>
                                 </a>
 
                             </div>
-
                         </td>
 
                     </tr>
@@ -150,25 +180,19 @@
                 {% empty %}
 
                     <tr>
-
                         <td colspan="7">
-
                             <div class="text-center py-5">
-
                                 <i class="bi bi-box-seam fs-1 text-muted"></i>
 
                                 <h5 class="mt-3">
-                                    Nenhum material cadastrado
+                                    Nenhum material encontrado
                                 </h5>
 
                                 <p class="text-muted">
-                                    Clique em "Novo material" para começar.
+                                    Ajuste os filtros ou cadastre um novo material.
                                 </p>
-
                             </div>
-
                         </td>
-
                     </tr>
 
                 {% endfor %}
@@ -178,6 +202,65 @@
         </table>
 
     </div>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+
+            <small class="text-muted">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            </small>
+
+            <nav>
+                <ul class="pagination mb-0">
+
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a
+                                class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}&search={{ search }}&category={{ selected_category }}&stock_status={{ selected_stock_status }}"
+                            >
+                                Anterior
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num >= page_obj.number|add:"-2" and num <= page_obj.number|add:"2" %}
+                            <li class="page-item">
+                                <a
+                                    class="page-link"
+                                    href="?page={{ num }}&search={{ search }}&category={{ selected_category }}&stock_status={{ selected_stock_status }}"
+                                >
+                                    {{ num }}
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a
+                                class="page-link"
+                                href="?page={{ page_obj.next_page_number }}&search={{ search }}&category={{ selected_category }}&stock_status={{ selected_stock_status }}"
+                            >
+                                Próxima
+                            </a>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+        </div>
+
+    {% endif %}
 
 </div>
 

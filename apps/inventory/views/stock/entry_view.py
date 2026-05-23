@@ -2,13 +2,16 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from apps.inventory.forms import StockEntryForm
-from apps.inventory.services.stock_service import (
-    register_stock_entry,
-)
+from apps.inventory.services.stock_service import register_stock_entry
 
 
 def stock_entry_view(request):
     form = StockEntryForm(request.POST or None)
+
+    material_id = request.GET.get("material")
+
+    if material_id and request.method == "GET":
+        form.fields["material"].initial = material_id
 
     if request.method == "POST":
         if form.is_valid():
