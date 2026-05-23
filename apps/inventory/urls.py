@@ -12,6 +12,7 @@ from apps.inventory.views import (
     material_update_view,
 
     stock_entry_view,
+    stock_movement_list_view,
 )
 
 app_name = "inventory"
@@ -68,5 +69,10 @@ urlpatterns = [
         "stock/entry/",
         stock_entry_view,
         name="stock_entry",
+    ),
+    path(
+        "stock/movements/",
+        stock_movement_list_view,
+        name="stock_movement_list",
     ),
 ]
