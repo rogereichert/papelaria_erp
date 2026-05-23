@@ -1,0 +1,59 @@
+{% extends "core/base.html" %}
+
+{% block title %}Dashboard | Papelaria ERP{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block page_subtitle %}Resumo operacional da papelaria{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-grid">
+
+    <div class="metric-card">
+        <div>
+            <span class="metric-label">Materiais cadastrados</span>
+            <strong class="metric-value">0</strong>
+        </div>
+        <div class="metric-icon">
+            <i class="bi bi-box-seam"></i>
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <div>
+            <span class="metric-label">Estoque baixo</span>
+            <strong class="metric-value">0</strong>
+        </div>
+        <div class="metric-icon warning">
+            <i class="bi bi-exclamation-triangle"></i>
+        </div>
+    </div>
+
+    <div class="metric-card">
+        <div>
+            <span class="metric-label">Compras do mês</span>
+            <strong class="metric-value">R$ 0,00</strong>
+        </div>
+        <div class="metric-icon success">
+            <i class="bi bi-cart-check"></i>
+        </div>
+    </div>
+
+</div>
+
+<div class="content-card mt-4">
+    <div class="content-card-header">
+        <div>
+            <h2>Bem-vindo ao ERP</h2>
+            <p>Essa é a base visual do sistema. A partir daqui vamos conectar os módulos reais.</p>
+        </div>
+    </div>
+
+    <div class="empty-state">
+        <i class="bi bi-stars"></i>
+        <h3>Core configurado com sucesso</h3>
+        <p>Layout, sidebar, navbar, mensagens globais e assets estão funcionando.</p>
+    </div>
+</div>
+
+{% endblock %}

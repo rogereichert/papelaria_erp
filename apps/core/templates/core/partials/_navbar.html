@@ -1,0 +1,29 @@
+<header class="app-navbar">
+
+    <button class="sidebar-toggle" id="sidebarToggle" type="button">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <div class="navbar-title">
+        <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+        <p>{% block page_subtitle %}Visão geral do sistema{% endblock %}</p>
+    </div>
+
+    <div class="navbar-actions">
+        <button class="icon-button" type="button">
+            <i class="bi bi-bell"></i>
+        </button>
+
+        <div class="user-chip">
+            <div class="user-avatar">
+                <i class="bi bi-person"></i>
+            </div>
+
+            <div class="user-info">
+                <strong>{{ request.user.get_full_name|default:request.user.username|default:"Usuário" }}</strong>
+                <span>Administrador</span>
+            </div>
+        </div>
+    </div>
+
+</header>
