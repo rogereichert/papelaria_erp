@@ -1,0 +1,95 @@
+{% extends "core/base.html" %}
+
+{% block title %}Categoria | Papelaria ERP{% endblock %}
+
+{% block page_title %}Categoria{% endblock %}
+{% block page_subtitle %}Cadastro e edição de categorias{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <div class="mb-4">
+
+        <h2 class="mb-1">
+
+            {% if category %}
+                Editar categoria
+            {% else %}
+                Nova categoria
+            {% endif %}
+
+        </h2>
+
+        <p class="text-muted mb-0">
+            Preencha os dados abaixo.
+        </p>
+
+    </div>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Nome
+            </label>
+
+            {{ form.name }}
+
+            {% if form.name.errors %}
+
+                <div class="text-danger mt-1">
+                    {{ form.name.errors }}
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Descrição
+            </label>
+
+            {{ form.description }}
+
+        </div>
+
+        <div class="form-check mb-4">
+
+            {{ form.is_active }}
+
+            <label class="form-check-label">
+                Categoria ativa
+            </label>
+
+        </div>
+
+        <div class="d-flex gap-2">
+
+            <button type="submit" class="btn btn-primary">
+
+                <i class="bi bi-check-lg"></i>
+
+                Salvar
+
+            </button>
+
+            <a
+                href="{% url 'inventory:category_list' %}"
+                class="btn btn-light"
+            >
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
