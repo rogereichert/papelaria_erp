@@ -94,6 +94,7 @@
                 <tr>
                     <th>Material</th>
                     <th>Categoria</th>
+                    <th>Tipo</th>
                     <th>Fornecedor</th>
                     <th>Estoque</th>
                     <th>Preço</th>
@@ -116,6 +117,12 @@
                         </td>
 
                         <td>{{ material.category.name }}</td>
+
+                        <td>
+                            <span class="badge bg-light text-dark border">
+                                {{ material.get_material_type_display }}
+                            </span>
+                        </td>
 
                         <td>{{ material.supplier|default:"-" }}</td>
 
@@ -180,7 +187,7 @@
                 {% empty %}
 
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             <div class="text-center py-5">
                                 <i class="bi bi-box-seam fs-1 text-muted"></i>
 

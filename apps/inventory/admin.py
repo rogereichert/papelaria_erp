@@ -49,17 +49,18 @@ class SupplierAdmin(admin.ModelAdmin):
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
     list_display = [
-    "name",
-    "category",
-    "supplier",
-    "current_stock",
-    "minimum_stock",
-    "purchase_unit",
-    "stock_unit",
-    "conversion_factor",
-    "cost_price",
-    "is_active",
-]
+        "name",
+        "category",
+        "supplier",
+        "material_type",
+        "current_stock",
+        "minimum_stock",
+        "purchase_unit",
+        "stock_unit",
+        "conversion_factor",
+        "cost_price",
+        "is_active",
+    ]
     search_fields = [
         "name",
         "description",
@@ -71,6 +72,7 @@ class MaterialAdmin(admin.ModelAdmin):
         "supplier",
         "is_active",
         "created_at",
+        "material_type",
     ]
     ordering = [
         "name",
@@ -88,6 +90,7 @@ class MaterialAdmin(admin.ModelAdmin):
                     "category",
                     "supplier",
                     "description",
+                    "material_type",
                 ]
             },
         ),

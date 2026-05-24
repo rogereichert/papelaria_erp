@@ -5,6 +5,11 @@ from apps.inventory.models.category import Category
 from apps.inventory.models.supplier import Supplier
 from apps.inventory.models.unit_of_measure import UnitOfMeasure
 
+class MaterialType(models.TextChoices):
+    SIMPLE = "SIMPLE", "Simples"
+    FRACTIONED = "FRACTIONED", "Fracionado"
+    PACKAGE = "PACKAGE", "Embalagem"
+    KIT = "KIT", "Kit"
 
 class Material(BaseModel):
     name = models.CharField(
@@ -32,6 +37,13 @@ class Material(BaseModel):
         blank=True,
         null=True,
         verbose_name="Descrição",
+    )
+
+    material_type = models.CharField(
+        max_length=20,
+        choices=MaterialType.choices,
+        default=MaterialType.SIMPLE,
+        verbose_name="Tipo de material",
     )
 
     purchase_unit = models.ForeignKey(

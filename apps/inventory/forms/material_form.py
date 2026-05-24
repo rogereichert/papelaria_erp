@@ -12,6 +12,7 @@ class MaterialForm(forms.ModelForm):
             "category",
             "supplier",
             "description",
+            "material_type",
             "purchase_unit",
             "stock_unit",
             "conversion_factor",
@@ -22,6 +23,13 @@ class MaterialForm(forms.ModelForm):
         ]
 
         widgets = {
+
+            "material_type": forms.Select(
+                attrs={
+                    "class": "form-select",
+                }
+            ),
+
             "name": forms.TextInput(
                 attrs={
                     "class": "form-control",
