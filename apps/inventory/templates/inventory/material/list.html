@@ -111,7 +111,7 @@
                         <td>
                             <div class="d-flex flex-column">
                                 <strong>{{ material.name }}</strong>
-                                <small class="text-muted">{{ material.unit }}</small>
+                                <small class="text-muted">{{ material.purchase_display }}</small>
                             </div>
                         </td>
 
@@ -121,7 +121,7 @@
 
                         <td>
                             <div class="d-flex flex-column">
-                                <strong>{{ material.current_stock }}</strong>
+                                <strong>{{ material.current_stock }} {{ material.stock_unit }}</strong>
 
                                 {% if material.is_low_stock %}
                                     <span class="badge bg-danger mt-1">

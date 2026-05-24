@@ -12,9 +12,11 @@ class MaterialForm(forms.ModelForm):
             "category",
             "supplier",
             "description",
+            "purchase_unit",
+            "stock_unit",
+            "conversion_factor",
             "current_stock",
             "minimum_stock",
-            "unit",
             "cost_price",
             "is_active",
         ]
@@ -26,19 +28,16 @@ class MaterialForm(forms.ModelForm):
                     "placeholder": "Nome do material",
                 }
             ),
-
             "category": forms.Select(
                 attrs={
                     "class": "form-select",
                 }
             ),
-
             "supplier": forms.Select(
                 attrs={
                     "class": "form-select",
                 }
             ),
-
             "description": forms.Textarea(
                 attrs={
                     "class": "form-control",
@@ -46,35 +45,42 @@ class MaterialForm(forms.ModelForm):
                     "placeholder": "Descrição do material",
                 }
             ),
-
+            "purchase_unit": forms.Select(
+                attrs={
+                    "class": "form-select",
+                }
+            ),
+            "stock_unit": forms.Select(
+                attrs={
+                    "class": "form-select",
+                }
+            ),
+            "conversion_factor": forms.NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "step": "0.01",
+                    "min": "0.01",
+                    "placeholder": "Ex: 500",
+                }
+            ),
             "current_stock": forms.NumberInput(
                 attrs={
                     "class": "form-control",
                     "step": "0.01",
                 }
             ),
-
             "minimum_stock": forms.NumberInput(
                 attrs={
                     "class": "form-control",
                     "step": "0.01",
                 }
             ),
-
-            "unit": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Ex: un, cx, pct",
-                }
-            ),
-
             "cost_price": forms.NumberInput(
                 attrs={
                     "class": "form-control",
                     "step": "0.01",
                 }
             ),
-
             "is_active": forms.CheckboxInput(
                 attrs={
                     "class": "form-check-input",

@@ -92,37 +92,65 @@
             <div class="content-card mb-4">
 
                 <h5 class="mb-3">
-                    Estoque
+                    Unidades e estoque
                 </h5>
 
                 <div class="mb-3">
+                    <label class="form-label">
+                        Eu compro em
+                    </label>
 
+                    {{ form.purchase_unit }}
+
+                    <small class="text-muted">
+                        Ex: pacote, caixa, resma, rolo.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Eu controlo/uso em
+                    </label>
+
+                    {{ form.stock_unit }}
+
+                    <small class="text-muted">
+                        Ex: folha, unidade, metro, grama.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        1 comprado vira quantos?
+                    </label>
+
+                    {{ form.conversion_factor }}
+
+                    <small class="text-muted">
+                        Ex: 1 pacote vira 500 folhas.
+                    </small>
+                </div>
+
+                <hr>
+
+                <div class="mb-3">
                     <label class="form-label">
                         Estoque atual
                     </label>
 
                     {{ form.current_stock }}
 
+                    <small class="text-muted">
+                        Armazenado na unidade de estoque.
+                    </small>
                 </div>
 
-                <div class="mb-3">
-
+                <div class="mb-0">
                     <label class="form-label">
                         Estoque mínimo
                     </label>
 
                     {{ form.minimum_stock }}
-
-                </div>
-
-                <div class="mb-0">
-
-                    <label class="form-label">
-                        Unidade
-                    </label>
-
-                    {{ form.unit }}
-
                 </div>
 
             </div>
