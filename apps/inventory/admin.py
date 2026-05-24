@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.inventory.models import Category, Material, Supplier, StockMovement
+from apps.inventory.models import Category, Material, Supplier, StockMovement, UnitOfMeasure
 
 
 @admin.register(Category)
@@ -147,4 +147,33 @@ class StockMovementAdmin(admin.ModelAdmin):
 
     ordering = [
         "-created_at",
+    ]
+
+@admin.register(UnitOfMeasure)
+class UnitOfMeasureAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "abbreviation",
+        "unit_type",
+        "is_active",
+    ]
+
+    search_fields = [
+        "name",
+        "abbreviation",
+        "description",
+    ]
+
+    list_filter = [
+        "unit_type",
+        "is_active",
+    ]
+
+    ordering = [
+        "name",
+    ]
+
+    readonly_fields = [
+        "created_at",
+        "updated_at",
     ]
