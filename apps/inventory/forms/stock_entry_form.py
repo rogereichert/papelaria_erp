@@ -15,7 +15,7 @@ class StockEntryForm(forms.Form):
     )
 
     quantity = forms.DecimalField(
-        label="Quantidade",
+        label="Quantidade comprada",
         min_value=0.01,
         max_digits=10,
         decimal_places=2,
@@ -23,7 +23,7 @@ class StockEntryForm(forms.Form):
             attrs={
                 "class": "form-control",
                 "step": "0.01",
-                "placeholder": "Quantidade de entrada",
+                "placeholder": "Ex: 2 pacotes, 3 caixas, 5 resmas",
             }
         ),
     )

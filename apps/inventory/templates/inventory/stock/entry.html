@@ -16,7 +16,7 @@
             <div class="mb-4">
                 <h2 class="mb-1">Nova entrada de estoque</h2>
                 <p class="text-muted mb-0">
-                    Selecione o material e informe a quantidade adicionada.
+                    Selecione o material e informe a quantidade comprada. O sistema converterá automaticamente para a unidade de estoque.
                 </p>
             </div>
 
@@ -40,10 +40,15 @@
 
                 <div class="mb-3">
                     <label class="form-label">
-                        Quantidade
+                        Quantidade comprada
                     </label>
 
                     {{ form.quantity }}
+
+                    <small class="text-muted">
+                        Exemplo: se o material estiver configurado como 1 pacote = 500 folhas,
+                        informar 2 adicionará 1000 folhas ao estoque.
+                    </small>
 
                     {% if form.quantity.errors %}
                         <div class="text-danger mt-1">
