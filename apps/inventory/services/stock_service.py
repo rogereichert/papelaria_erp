@@ -30,19 +30,28 @@ def register_stock_entry(
     new_stock = previous_stock + converted_quantity
 
     material.current_stock = new_stock
-    material.save(update_fields=["current_stock", "updated_at"])
+
+    material.save(
+        update_fields=[
+            "current_stock",
+            "updated_at",
+        ]
+    )
 
     StockMovement.objects.create(
         material=material,
         movement_type=MovementType.ENTRY,
-        quantity=converted_quantity,
+
+        purchase_quantity=quantity,
+        purchase_unit=material.purchase_unit,
+
+        converted_quantity=converted_quantity,
+        stock_unit=material.stock_unit,
+
         previous_stock=previous_stock,
         new_stock=new_stock,
-        notes=(
-            f"Entrada: {quantity} {material.purchase_unit} "
-            f"= {converted_quantity} {material.stock_unit}. "
-            f"{notes}"
-        ).strip(),
+
+        notes=notes,
     )
 
     return material
@@ -63,14 +72,27 @@ def register_stock_output(
     new_stock = previous_stock - quantity
 
     material.current_stock = new_stock
-    material.save(update_fields=["current_stock", "updated_at"])
+
+    material.save(
+        update_fields=[
+            "current_stock",
+            "updated_at",
+        ]
+    )
 
     StockMovement.objects.create(
         material=material,
         movement_type=MovementType.OUTPUT,
-        quantity=quantity,
+
+        purchase_quantity=quantity,
+        purchase_unit=material.stock_unit,
+
+        converted_quantity=quantity,
+        stock_unit=material.stock_unit,
+
         previous_stock=previous_stock,
         new_stock=new_stock,
+
         notes=notes,
     )
 

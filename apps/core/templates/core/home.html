@@ -74,7 +74,17 @@
                             {{ movement.get_movement_type_display }}
                         </td>
 
-                        <td>{{ movement.quantity }} {{ movement.material.stock_unit }}</td>
+                        <td>
+
+                            {{ movement.purchase_quantity }}
+                            {{ movement.purchase_unit }}
+
+                            →
+
+                            {{ movement.converted_quantity }}
+                            {{ movement.stock_unit }}
+
+                        </td>
 
                         <td>
                             {{ movement.created_at|date:"d/m/Y H:i" }}

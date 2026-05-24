@@ -128,7 +128,10 @@ class StockMovementAdmin(admin.ModelAdmin):
     list_display = [
         "material",
         "movement_type",
-        "quantity",
+        "purchase_quantity",
+        "purchase_unit",
+        "converted_quantity",
+        "stock_unit",
         "previous_stock",
         "new_stock",
         "created_at",
@@ -141,6 +144,8 @@ class StockMovementAdmin(admin.ModelAdmin):
 
     list_filter = [
         "movement_type",
+        "purchase_unit",
+        "stock_unit",
         "created_at",
     ]
 

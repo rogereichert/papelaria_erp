@@ -2,6 +2,7 @@ from django.db import models
 
 from apps.core.models import BaseModel
 from apps.inventory.models.material import Material
+from apps.inventory.models.unit_of_measure import UnitOfMeasure
 
 
 class MovementType(models.TextChoices):
@@ -24,10 +25,30 @@ class StockMovement(BaseModel):
         verbose_name="Tipo de movimentação",
     )
 
-    quantity = models.DecimalField(
+    purchase_quantity = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name="Quantidade",
+        verbose_name="Quantidade comprada",
+    )
+
+    purchase_unit = models.ForeignKey(
+        UnitOfMeasure,
+        on_delete=models.PROTECT,
+        related_name="purchase_movements",
+        verbose_name="Unidade comprada",
+    )
+
+    converted_quantity = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Quantidade convertida",
+    )
+
+    stock_unit = models.ForeignKey(
+        UnitOfMeasure,
+        on_delete=models.PROTECT,
+        related_name="stock_movements",
+        verbose_name="Unidade de estoque",
     )
 
     previous_stock = models.DecimalField(
@@ -55,3 +76,11 @@ class StockMovement(BaseModel):
 
     def __str__(self):
         return f"{self.material} - {self.get_movement_type_display()}"
+
+    @property
+    def conversion_display(self):
+        return (
+            f"{self.purchase_quantity} {self.purchase_unit} "
+            f"→ "
+            f"{self.converted_quantity} {self.stock_unit}"
+        )
